@@ -3,3 +3,6 @@ Logs/
 
 # Ignore log files
 *.log
+
+# Ignore app directory
+app/

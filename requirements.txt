@@ -1,0 +1,9 @@
+email
+pandas
+datetime
+os
+win32com.client
+glob
+shutil
+sys
+csv

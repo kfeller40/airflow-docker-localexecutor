@@ -1,7 +1,7 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import datetime, timedelta
-from my_python_functions import print_date, sleep, echo_hello
+from my_python_functions import create_time_csv_sample
 
 default_args = {
     'owner': 'airflow',
@@ -14,27 +14,17 @@ default_args = {
 }
 
 with DAG(
-    'example_python_dag',
+    'create_time_csv_sample',
     default_args=default_args,
-    description='A simple tutorial DAG using PythonOperator',
-    schedule_interval=timedelta(days=1),
+    description='Create a csv file every time this dag is run.',
+    schedule_interval=timedelta(minutes=15),
     start_date=datetime(2023, 10, 1),
     catchup=False
 ) as dag:
 
     task1 = PythonOperator(
-        task_id='print_date',
-        python_callable=print_date,
+        task_id='create_time_csv_sample',
+        python_callable=create_time_csv_sample,
     )
 
-    task2 = PythonOperator(
-        task_id='sleep',
-        python_callable=sleep,
-    )
-
-    task3 = PythonOperator(
-        task_id='echo_hello',
-        python_callable=echo_hello,
-    )
-
-    task1 >> task2 >> task3
+    task1
